@@ -1,0 +1,7 @@
+{
+  "extends": ["mixmax/node/jest"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

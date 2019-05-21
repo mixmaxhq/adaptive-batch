@@ -1,0 +1,54 @@
+{
+  "name": "@mixmaxhq/adaptive-batch",
+  "version": "0.1.0",
+  "description": "An adaptive batch tool, which adjusts concurrency to a keyed async batch function in response to increased throughput.",
+  "main": "./dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "ci": "npm run lint && npm test",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run build",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mixmaxhq/adaptive-batch.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "batch",
+    "cache",
+    "adaptive",
+    "batched",
+    "concurrent",
+    "throughput",
+    "latency"
+  ],
+  "author": "Eli Skeggs <eli@mixmax.com> (https://mixmax.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mixmaxhq/adaptive-batch/issues"
+  },
+  "homepage": "https://github.com/mixmaxhq/adaptive-batch#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "eslint": "^5.16.0",
+    "eslint-config-mixmax": "^2.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1",
+    "rollup": "^1.12.3",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.0.0"
+  },
+  "dependencies": {
+    "promise-callbacks": "^3.3.0",
+    "subl": "^1.0.3"
+  }
+}

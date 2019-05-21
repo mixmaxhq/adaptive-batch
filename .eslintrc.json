@@ -1,0 +1,10 @@
+{
+  "extends": ["mixmax/node"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
