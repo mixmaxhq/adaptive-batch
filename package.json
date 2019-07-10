@@ -48,7 +48,6 @@
     "rollup-plugin-node-resolve": "^5.0.0"
   },
   "dependencies": {
-    "promise-callbacks": "^3.3.0",
-    "subl": "^1.0.3"
+    "promise-callbacks": "^3.3.0"
   }
 }
