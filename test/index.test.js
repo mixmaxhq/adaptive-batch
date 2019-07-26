@@ -1,6 +1,12 @@
 import adaptiveBatch from '../src';
 import { defer } from 'promise-callbacks';
 
+function* range(num) {
+  for (let i = 0; i < num; ++i) {
+    yield num;
+  }
+}
+
 describe('adaptiveBatch', () => {
   it('should support multiple concurrent invocations', async () => {
     const d1 = defer(),
@@ -137,9 +143,7 @@ describe('adaptiveBatch', () => {
     });
 
     const numEmails = 500;
-    const emails = Array(numEmails)
-      .fill(null)
-      .map((_, idx) => `doot${idx}@noot.com`);
+    const emails = Array.from(range(numEmails)).map((_, idx) => `doot${idx}@noot.example.com`);
 
     const upperEmailPromises = emails.map(get).map((upperEmailPromise, idx) => {
       const email = emails[idx];
