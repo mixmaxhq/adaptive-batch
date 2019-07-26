@@ -12,9 +12,12 @@ export function extractFrom(map, num) {
   }
   const output = new Map();
   const iter = map[Symbol.iterator]();
-  for (const [k, v] of iter) {
-    if (!num--) break;
-    output.set(k, v);
+  if (num) {
+    for (const [k, v] of iter) {
+      output.set(k, v);
+      if (!--num) break;
+    }
   }
+
   return [new Map(iter), output];
 }
