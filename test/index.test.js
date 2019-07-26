@@ -1,6 +1,12 @@
 import adaptiveBatch from '../src';
 import { defer } from 'promise-callbacks';
 
+function* range(num) {
+  for (let i = 0; i < num; ++i) {
+    yield num;
+  }
+}
+
 describe('adaptiveBatch', () => {
   it('should support multiple concurrent invocations', async () => {
     const d1 = defer(),
@@ -117,6 +123,37 @@ describe('adaptiveBatch', () => {
 
     expect(getter).toHaveBeenCalledTimes(2);
     expect([...getter.mock.calls[1][0]]).toEqual(['noot2']);
+  });
+
+  it('should handle hundreds of concurrent requests', async () => {
+    // Wait a microtick, then convert the emails to upper case. Keep track of the
+    // total number of emails we process for verification later.
+    let totalProcessed = 0;
+    const getter = async (emailsIt) => {
+      const emails = [...emailsIt];
+      await void Promise;
+      totalProcessed += emails.length;
+      return new Map(emails.map((email) => [email, email.toUpperCase()]));
+    };
+
+    const get = adaptiveBatch(getter, {
+      maxBatch: 100,
+      maxConcurrent: 8,
+      maxQueued: 32,
+    });
+
+    const numEmails = 500;
+    const emails = Array.from(range(numEmails)).map((_, idx) => `doot${idx}@noot.example.com`);
+
+    const upperEmailPromises = emails.map(get).map((upperEmailPromise, idx) => {
+      const email = emails[idx];
+      return upperEmailPromise.then((upperEmail) => {
+        expect(email.toUpperCase()).toEqual(upperEmail);
+      });
+    });
+
+    await Promise.all(upperEmailPromises);
+    expect(totalProcessed).toEqual(numEmails);
   });
 
   it('should fall back to erroring', async () => {
