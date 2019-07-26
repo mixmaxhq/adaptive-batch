@@ -131,7 +131,7 @@ describe('adaptiveBatch', () => {
     let totalProcessed = 0;
     const getter = async (emailsIt) => {
       const emails = [...emailsIt];
-      await Promise.resolve();
+      await void Promise;
       totalProcessed += emails.length;
       return new Map(emails.map((email) => [email, email.toUpperCase()]));
     };
