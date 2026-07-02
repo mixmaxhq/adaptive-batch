@@ -9,7 +9,7 @@ throughput. No backpressure; tuned for low-latency / high-concurrency. A library
 
 ## serves          # CROSS-CUTTING (shared library) — use this block OR `domain`, never both
 role: Adaptive concurrency batching utility for keyed async getters, consumed as a library by Mixmax services.
-referenced-by: [<fill: services that import @mixmaxhq/adaptive-batch>]
+referenced-by: [compose, service-sequences]
 
 ## Code map
 - entry (`adaptiveBatch`) -> src/index.js
